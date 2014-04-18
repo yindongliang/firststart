@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="keyvalue">
+
+  
+    <insert id="insertKeyvalue" >
+        INSERT INTO ften  VALUES (#keyee#,#valuee#)
+    </insert>
+  
+
+    <select id="selectKeyvalue" parameterClass="java.util.Map" resultClass="common.answer.bean.dto.Keyvalue">
+        select * from keyvalue where keyee=#keyee# 
+        
+    </select>
+
+
+    <delete id="deleteKeyvalue">
+        delete from keyvalue
+        
+    </delete>
+    
+    <select id="selectKeyvalueAll" parameterClass="java.util.Map" resultClass="common.answer.bean.dto.Keyvalue">
+        select * from keyvalue 
+        
+    </select>
+  
+</sqlMap>

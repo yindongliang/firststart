@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="alldata">
+
+    <insert id="insertData" parameterClass="java.util.List">
+        insert into alldata values
+        <iterate  open="(" close=")" conjunction=",">
+            #dt[]#        
+        </iterate>
+    </insert>
+	
+    <select id="selectData" parameterClass="java.util.Map" resultClass="common.answer.bean.dto.Alldata">
+        select * from alldata where 1=1
+        <isNotNull prepend="and " property="stock_cd">
+            stock_cd=#stock_cd#
+        </isNotNull>
+        <isNotNull  prepend="and "  property="record_date_from">
+        	<![CDATA[
+		 record_date>=#record_date_from#
+		  ]]>
+        </isNotNull>
+        <isNotNull  prepend="and "  property="record_date_to">
+ 		<![CDATA[
+		 record_date<=#record_date_to#
+		 ]]>
+        </isNotNull>
+        <isNotNull  property="orderby">
+            order by record_date $orderby$
+        </isNotNull>
+        <isNotNull  property="limit">
+            limit #limit#
+        </isNotNull>
+    </select>
+   
+    <delete id="deleteData" parameterClass="java.util.Map">
+        delete from alldata 
+        where stock_cd=#stock_cd#
+        and record_date=#record_date#
+        
+    </delete>
+    
+    <select id="selectDate"  resultClass="java.lang.String">
+        select record_date from alldata where stock_cd='si000001'
+       order by record_date asc
+    </select>
+    
+    <select id="countZToftargetDate" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+        SELECT count(stock_cd) FROM stock2.alldata where present_price/yt_close_price>1.099 and record_date=#record_date#;
+
+    </select> 
+    
+</sqlMap>

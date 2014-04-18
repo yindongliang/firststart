@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <settings useStatementNamespaces="true"/>
+    
+    <sqlMap resource="sqlmap/alldata.xml"/>
+ 
+    <sqlMap resource="sqlmap/ften.xml"/>
+     <sqlMap resource="sqlmap/download.xml"/>
+    <sqlMap resource="sqlmap/weekData.xml"/>
+    <sqlMap resource="sqlmap/SearchRecord.xml"/>
+    <sqlMap resource="sqlmap/liangrongtarget.xml"/>
+    <sqlMap resource="sqlmap/keyvalue.xml"/>
+</sqlMapConfig>
