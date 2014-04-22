@@ -63,18 +63,24 @@ public class Stock2DB {
    	
        return Keyvalue;
    }
-    
-    public String getAlldata(String datafile_path_sh, String datafile_path_sz) {
+    public List<String> getStockList(String datafile_path_sh, String datafile_path_sz){
+    	List<String> ls_shsz =popertiesHelper.getStockCds(datafile_path_sh, datafile_path_sz);
+    	ls_shsz.add(popertiesHelper.getStocksProperties().getString("shindice_code"));
+    	return ls_shsz;
+    }
+    public String getAlldata(List<String> ls_shsz ) {
         // get all stock's code
-        List<String> ls_shsz = popertiesHelper.getStockCds(datafile_path_sh, datafile_path_sz);
+      //  List<String> ls_shsz = popertiesHelper.getStockCds(datafile_path_sh, datafile_path_sz);
         // add the shanghai indices
-        ls_shsz.add(popertiesHelper.getStocksProperties().getString("shindice_code"));
+//    	ls_shsz.add(popertiesHelper.getStocksProperties().getString("shindice_code"));
         List<String> stock_detail = null;
         // get the detail of the stocks
         for (int j = 0; j < ls_shsz.size(); j++) {
 
             stock_detail = httpHelper.sendRequest(ls_shsz.get(j), popertiesHelper.getStocksProperties());
-
+            if (stock_detail==null){
+            	continue;
+            }
             if (!LogicHelper.isOpening(stock_detail) || !LogicHelper.isStock(stock_detail)) {
                 continue;
             }
@@ -587,6 +593,9 @@ public class Stock2DB {
             List<Alldata> listalldata = queryDAO.executeForObjectList("alldata.selectData", confalldata);
             ds.setAlldatalist(listalldata);
             ds.setRecord_date(listalldata.get(0).getRecord_date());
+            if("si000001".equals(stockcd)){
+            	cache.put("stockdate", listalldata.get(0).getRecord_date());
+            }
             cache.put(stockcd, ds);
             stock_cds.add(stockcd);
         }

@@ -12,12 +12,12 @@ public class Start {
 			
 			if(args==null){
 				System.out.println("only support the following parameters:");
-				System.out.println("Createweekdata oneweek C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
-				System.out.println("Createweekdata mutiweek C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
-				System.out.println("InsertCurrentDaydataFromInternet C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
-				System.out.println("InsertHistorydataFromFile 2014-03-18 C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
+				System.out.println("Createweekdata oneweek C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 1");
+				System.out.println("Createweekdata mutiweek C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 1");
+				System.out.println("InsertCurrentDaydataFromInternet C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 10");
+				System.out.println("InsertHistorydataFromFile 2014-03-18 C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 1");
 				System.out.println("PutNewestDataIntoMemory stock_allinone /deal/ {tel:0000000000,pwd:6764,dayk:'5,8,80,1'}");
-				System.out.println("UpdateF10dataFromFile C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ C:\\htdzh\\DATA\\SHase\\Base\\ C:\\htdzh\\DATA\\SZnse\\Base\\");
+				System.out.println("UpdateF10dataFromFile C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ C:\\htdzh\\DATA\\SHase\\Base\\ C:\\htdzh\\DATA\\SZnse\\Base\\ 1");
 			}
 			ac = new ClassPathXmlApplicationContext(new String[] {
 					"applicationContext.xml", "dataAccessContext-local.xml" });

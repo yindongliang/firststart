@@ -36,7 +36,10 @@ public class Formater {
         String code = input.substring(mid - 6, mid);
 
         String[] dataArr = body.split(",");
-
+       
+        if(dataArr.length<30){
+        	return null;
+        }
         if (dataArr[30].startsWith("15")) {
 
             
@@ -47,7 +50,7 @@ public class Formater {
         
         if (dataArr.length > 2) {
 
-            if (dataArr[1].length() >= 7) {
+            if (stock_name.contains("上证")) {
                 code = "si" + code;
             }
         }
