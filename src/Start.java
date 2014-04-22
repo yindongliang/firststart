@@ -1,59 +1,35 @@
-import helper.HttpHelper;
-
-import java.net.URLEncoder;
-import java.util.List;
-
-import net.sf.json.JSONObject;
+import main.WhatIdoIF;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.client.config.ClientConfig;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
-
-import common.answer.bean.dto.Keyvalue;
-import common.answer.logic.Stock2DB;
 
 public class Start {
 	public static ApplicationContext ac;
 
-	@SuppressWarnings("deprecation")
-	public static void main(String[] args)  {
-		
-		try{
 
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException  {
+		try{
+			
+			if(args==null){
+				System.out.println("only support the following parameters:");
+				System.out.println("Createweekdata oneweek C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
+				System.out.println("Createweekdata mutiweek C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
+				System.out.println("InsertCurrentDaydataFromInternet C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
+				System.out.println("InsertHistorydataFromFile 2014-03-18 C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\");
+				System.out.println("PutNewestDataIntoMemory stock_allinone /deal/ {tel:0000000000,pwd:6764,dayk:'5,8,80,1'}");
+				System.out.println("UpdateF10dataFromFile C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ C:\\htdzh\\DATA\\SHase\\Base\\ C:\\htdzh\\DATA\\SZnse\\Base\\");
+			}
 			ac = new ClassPathXmlApplicationContext(new String[] {
 					"applicationContext.xml", "dataAccessContext-local.xml" });
-			Stock2DB st = (Stock2DB) ac.getBean("Stock2DB");
-			List<Keyvalue> kvlst = st.getKeyvalue();
-			ClientConfig clientConfig = new ClientConfig();
-			for (Keyvalue kv : kvlst) {
-				if ("mmaddress".equals(kv.getKeyee())) {
-					clientConfig.addAddress(kv.getValuee());
-				}
+			Class<?> whatido = Class.forName("main."+args[0]);
+			WhatIdoIF w=(WhatIdoIF) whatido.newInstance();
+			String[] args2= new String[args.length-1];
+			
+			for(int i=1;i<args.length;i++){
+				args2[i-1]=args[i];
 			}
-
-			HazelcastInstance client = HazelcastClient
-					.newHazelcastClient(clientConfig);
-			IMap<?, ?> map = client.getMap("stockers");
-			map.clear();
-
-			st.setDataintoMem(map);
-			client.shutdown();
+			w.dojob(ac, args2);
 			
-			HttpHelper httpHelper = new HttpHelper();
-			
-			JSONObject tempjson = JSONObject.fromObject(args[1]);
-			
-			String forwardid = URLEncoder.encode(tempjson.toString(),"UTF-8");
-			String[] strarr= {args[2],args[3],args[4],args[5]};
-			// initiate web project,make data get involved into web application from hazelcast
-			httpHelper.sendRequest(args[0]+forwardid, strarr);
-			AbstractApplicationContext acc = (AbstractApplicationContext) ac;
-			acc.registerShutdownHook();
 			System.exit(0);
 		}catch(Exception e){
 			e.printStackTrace();
