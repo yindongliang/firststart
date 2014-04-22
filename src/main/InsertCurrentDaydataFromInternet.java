@@ -9,9 +9,8 @@ public class InsertCurrentDaydataFromInternet implements WhatIdoIF {
 
 	@Override
 	public String dojob(ApplicationContext ac, String[] args) {
-		String retv = ((Stock2DB) ac.getBean("Stock2DB")).insert2dbFromFile(args[0], Canlendar.getSystemdate(), false,
-				args[1],
-				args[2]);
+		String retv = ((Stock2DB) ac.getBean("Stock2DB")).getAlldata(args[0],
+				args[1]);
 		return retv;
 	}
 
