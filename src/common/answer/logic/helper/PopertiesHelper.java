@@ -36,8 +36,7 @@ public class PopertiesHelper {
 //        String datafile_path_sz = stocksProperties.getString("datafile_path_sz");
         File filesh = new File(datafile_path_sh);
         File filesz = new File(datafile_path_sz);
-        System.out.println(datafile_path_sh);
-        System.out.println(datafile_path_sz);
+
         File[] filessh = filesh.listFiles();
         File[] filessz = filesz.listFiles();
         HashSet hs = new HashSet();

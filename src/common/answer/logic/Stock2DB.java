@@ -65,7 +65,7 @@ public class Stock2DB {
    }
     public List<String> getStockList(String datafile_path_sh, String datafile_path_sz){
     	List<String> ls_shsz =popertiesHelper.getStockCds(datafile_path_sh, datafile_path_sz);
-    	ls_shsz.add(popertiesHelper.getStocksProperties().getString("shindice_code"));
+    	//ls_shsz.add(popertiesHelper.getStocksProperties().getString("shindice_code"));
     	return ls_shsz;
     }
     public String getAlldata(List<String> ls_shsz ) {
@@ -593,12 +593,18 @@ public class Stock2DB {
             List<Alldata> listalldata = queryDAO.executeForObjectList("alldata.selectData", confalldata);
             ds.setAlldatalist(listalldata);
             ds.setRecord_date(listalldata.get(0).getRecord_date());
-            if("si000001".equals(stockcd)){
-            	cache.put("stockdate", listalldata.get(0).getRecord_date());
-            }
+            
             cache.put(stockcd, ds);
             stock_cds.add(stockcd);
         }
+    	 Map<String, Object> szzs = new HashMap<String, Object>();
+    	 szzs.put("stock_cd", "si000001");
+    	 szzs.put("record_date_to", Canlendar.getSystemdate());
+    	 szzs.put("orderby", "desc");
+    	 szzs.put("limit", 2);
+         List<Alldata> listalldata = queryDAO.executeForObjectList("alldata.selectData", szzs);
+         log.info("stockdate has been put into hazelcast:"+listalldata.get(0).getRecord_date());
+     	cache.put("stockdate", listalldata.get(0).getRecord_date());
     	cache.put("stocklist", stock_cds);
     }
  
