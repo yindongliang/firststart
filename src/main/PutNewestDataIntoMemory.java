@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import com.hazelcast.client.HazelcastClient;
+import com.hazelcast.client.config.ClientNetworkConfig;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
@@ -25,11 +26,13 @@ public class PutNewestDataIntoMemory implements WhatIdoIF {
 	public String dojob(ApplicationContext ac, String[] args) throws UnsupportedEncodingException {
 		Stock2DB st = (Stock2DB) ac.getBean("Stock2DB");
 		List<Keyvalue> kvlst = st.getKeyvalue();
-		ClientConfig clientConfig = new ClientConfig();
+		ClientConfig clientConfig= new ClientConfig();
+		ClientNetworkConfig clientnetworkConfig = new ClientNetworkConfig();
 		String appinfo="";
 		for (Keyvalue kv : kvlst) {
 			if ("mmaddress".equals(kv.getKeyee())) {
-				clientConfig.addAddress(kv.getValuee());
+				clientnetworkConfig.addAddress(kv.getValuee());
+				clientnetworkConfig.setConnectionAttemptLimit(4);
 			}else if (args[0].equals(kv.getKeyee())) {
 
 				/*
@@ -39,9 +42,11 @@ public class PutNewestDataIntoMemory implements WhatIdoIF {
 				appinfo=(kv.getValuee());
 			} 
 		}
-
+		clientConfig.setNetworkConfig(clientnetworkConfig);
+		
 		HazelcastInstance client = HazelcastClient
 				.newHazelcastClient(clientConfig);
+		
 		IMap<?, ?> map = client.getMap("stockers");
 		map.clear();
 
