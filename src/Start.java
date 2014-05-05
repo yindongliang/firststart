@@ -16,8 +16,11 @@ public class Start {
 				System.out.println("Createweekdata mutiweek C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 1");
 				System.out.println("InsertCurrentDaydataFromInternet C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 10");
 				System.out.println("InsertHistorydataFromFile 2014-03-18 C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 1");
-				System.out.println("PutNewestDataIntoMemory stock_allinone /deal/ {tel:0000000000,pwd:6764,dayk:'5,8,80,1'}");
-				System.out.println("UpdateF10dataFromFile C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ C:\\htdzh\\DATA\\SHase\\Base\\ C:\\htdzh\\DATA\\SZnse\\Base\\ 1");
+				System.out.println("PutNewestDataIntoMemory stock_allinone /deal/ {tel:0000000000,pwd:6764,dayk:'5,8,80,1'} 1");
+				System.out.println("UpdateF10dataFromFile C:\\htdzh\\DATA\\SHase\\Base\\ C:\\htdzh\\DATA\\SZnse\\Base\\ C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ 1");
+				System.out.println("GenerateEmptyFileWithSameFileName C:\\htdzh\\DATA\\SHase\\Day\\ C:\\htdzh\\DATA\\SZnse\\Day\\ D:\\Y_private\\Dev\\stock_data\\sh\\ D:\\Y_private\\Dev\\stock_data\\sz\\ 1");
+				System.out.println("GenerateDataFileWithSameFileName C:\\htdzh\\DATA\\SHase\\Base\\ C:\\htdzh\\DATA\\SZnse\\Base\\ D:\\Y_private\\Dev\\stock_data\\shf10\\ D:\\Y_private\\Dev\\stock_data\\szf10\\ 4");
+				
 			}
 			ac = new ClassPathXmlApplicationContext(new String[] {
 					"applicationContext.xml", "dataAccessContext-local.xml" });

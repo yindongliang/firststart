@@ -1,34 +1,33 @@
 package main.thread;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.answer.logic.Stock2DB;
-
-public class ThreadListener {
+public class CopyF10DataThreadListener {
 	
 	
-	public static void listenThreads(int threadcount,List<String> stocklist,Class clazz,Stock2DB stock2DB) throws InstantiationException, IllegalAccessException{
+	public static void listenThreads(int threadcount,List<File> stocklist,String targetFolder) throws InstantiationException, IllegalAccessException{
 		
 		Map<Integer, String> mpcnt = new HashMap<Integer, String>();
 		int t = stocklist.size() / threadcount;
 
 		for (int i = 0; i < threadcount; i++) {
-			ThreadIf threadif=(ThreadIf) clazz.newInstance();
+			CopyF10DataFileThr thread=new CopyF10DataFileThr();
 			if (i == threadcount - 1) {
 				
-				threadif.setData(mpcnt,stock2DB, i,stocklist.subList(i * t,
-						stocklist.size()));
+				thread.setData(mpcnt, i,stocklist.subList(i * t,
+						stocklist.size()),targetFolder);
 				
 
 			} else {
-				threadif.setData(mpcnt,stock2DB, i,stocklist.subList(i * t, (i + 1) * t));
+				thread.setData(mpcnt, i,stocklist.subList(i * t, (i + 1) * t),targetFolder);
 				
 
 
 			}
-			threadif.start();
+			thread.start();
 		}
 		
 		while (true) {
@@ -37,7 +36,7 @@ public class ThreadListener {
 				if(mpcnt.get(i)==null){
 					continueflg=true;
 					try {
-						Thread.sleep(100);
+						Thread.sleep(1);
 						break;
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
