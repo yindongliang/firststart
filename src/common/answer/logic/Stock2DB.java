@@ -581,7 +581,11 @@ public class Stock2DB {
             Map<String, Object> weekcond = new HashMap<String, Object>();
             weekcond.put("stock_cd", stockcd);
             weekcond.put("limit", 40);
+            
             List<WeekData> weekdatas = queryDAO.executeForObjectList("weekData.selectDataForChecking", weekcond);
+            if(weekdatas.size()<40){
+            	continue;
+            }
             ds.setWeekdatalist(weekdatas);
 
             Map<String, Object> confalldata = new HashMap<String, Object>();
@@ -591,6 +595,9 @@ public class Stock2DB {
             confalldata.put("limit", 100);
 
             List<Alldata> listalldata = queryDAO.executeForObjectList("alldata.selectData", confalldata);
+            if(listalldata.size()<100){
+            	continue;
+            }
             ds.setAlldatalist(listalldata);
             ds.setRecord_date(listalldata.get(0).getRecord_date());
             

@@ -53,14 +53,14 @@ public class PutNewestDataIntoMemory implements WhatIdoIF {
 		st.setDataintoMem(map);
 		client.shutdown();
 		
-		HttpHelper httpHelper = new HttpHelper();
+//		HttpHelper httpHelper = new HttpHelper();
 		
-		JSONObject tempjson = JSONObject.fromObject(args[2]);
+//		JSONObject tempjson = JSONObject.fromObject(args[2]);
 		
-		String forwardid = URLEncoder.encode(tempjson.toString(),"UTF-8");
-		String[] strarr= appinfo.split(",");
+//		String forwardid = URLEncoder.encode(tempjson.toString(),"UTF-8");
+//		String[] strarr= appinfo.split(",");
 		// initiate web project,make data get involved into web application from hazelcast
-		httpHelper.sendRequest(args[1]+forwardid, strarr);
+//		httpHelper.sendRequest(args[1]+forwardid, strarr);
 		AbstractApplicationContext acc = (AbstractApplicationContext) ac;
 		acc.registerShutdownHook();
 		return "done";
